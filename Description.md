@@ -1,0 +1,57 @@
+# 🔐 Command-Line Password Manager
+
+## 📄 Project Description
+
+This project is a secure Python-based command-line application designed to manage and protect user passwords. It uses a master password to control access and applies AES encryption (via the `cryptography` library) to store all credentials safely in a local file.
+
+Users can add, view, and manage credentials for multiple websites or apps. Passwords are encrypted and stored in a JSON file (`vault.json`), and can only be accessed after entering the correct master key. The project uses `getpass` to securely input passwords without displaying them on the screen.
+
+
+## ✅ Key Highlights
+
+- Local password storage with AES encryption  
+- Simple command-line interface (CLI)  
+- Passwords hidden during input using `getpass`  
+- No internet or external database required — completely offline and secure
+
+
+## 🛠 Technologies Used
+
+- **Python 3.x** – Core language for scripting  
+- **cryptography** – Used for AES encryption (Fernet)  
+- **getpass** – Hides password input in terminal  
+- **json** – For storing encrypted data in a structured format  
+- **base64, os, hashlib** – Utilities for secure key derivation and file handling
+
+## 🧱 Architectural Highlights & Design Choices
+
+- **Master Password-Based Access**:  
+  Users must enter a master password at runtime. This password is used to derive an AES encryption key via PBKDF2HMAC with a salt.
+
+- **AES Encryption via Fernet**:  
+  All site credentials (username + password) are encrypted using a symmetric key with the Fernet protocol, ensuring high security.
+
+- **Local Vault File (`vault.json`)**:  
+  The password vault is stored as an encrypted JSON file locally. No cloud or third-party storage is involved, reducing attack surfaces.
+
+- **Modular Design**:  
+  The program separates concerns like encryption, file handling, and user interaction into functions for easy updates and debugging.
+
+## ⚔️ Challenges and Solutions
+
+| Challenge                       | Solution                                                       |
+|--------------------------------|----------------------------------------------------------------|
+| Securely storing passwords      | Used `cryptography.fernet` to encrypt data                     |
+| Protecting user input           | Implemented `getpass` to hide password entries                 |
+| Preventing brute force/misuse   | Encrypted data using a derived key from a salted master password |
+| First-run file setup            | Automatically generates salt and vault file on the first execution |
+
+
+## 🔮 Future Enhancements
+
+- 🔍 **Search Functionality**: Quickly find credentials by site name  
+- ✏️ **Delete or Update Entries**: Allow modifying or removing existing passwords  
+- 📤 **Export/Backup**: Secure export and import of encrypted vaults  
+- 🔒 **Auto-Lock**: Lock the vault after a period of inactivity  
+- 🚫 **Brute Force Protection**: Add attempt limits and cooldown timers  
+- ☁️ **Optional Cloud Sync**: Encrypted vault sync to cloud (with user consent)
